@@ -45,7 +45,7 @@ async def cbstart(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹💰 شراء بوت›", url="https://t.me/GGG66"
+                        "‹💰 شراء بوت›", url="https://t.me/sssvs"
                     )
                 ],
             ]

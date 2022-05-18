@@ -48,7 +48,7 @@ async def _human_time_duration(seconds):
 
 
 @Client.on_message(
-    command(["ss", f"ss@{BOT_USERNAME}"]) & filters.private & ~filters.edited
+    command(["/start", f"/start@{BOT_USERNAME}"]) & filters.private & ~filters.edited
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
@@ -82,7 +82,7 @@ async def start_(client: Client, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹💰 شراء بوت›", url="https://t.me/GGG66"
+                        "‹💰 شراء بوت›", url="https://t.me/sssvs"
                     )
                 ],
             ]
@@ -102,9 +102,9 @@ async def alive(client: Client, message: Message):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("اوامر التشغيل", url=f"https://t.me/vrrrrvr"),
+                InlineKeyboardButton("اوامر التشغيل", url=f"https://t.me/dddgggm5"),
                 InlineKeyboardButton(
-                    "مطور السورس", url=f"https://t.me/GGG66"
+                    "مطور السورس", url=f"https://t.me/sssvs"
                 ),
             ]
         ]
