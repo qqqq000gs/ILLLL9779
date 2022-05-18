@@ -23,7 +23,7 @@ async def join_chat(c: Client, m: Message):
             (await user.get_me()).id,
             can_manage_voice_chats=True
         )
-        return await user.send_message(chat_id, "✅ انضم حساب المساعد إلى الدردشة")
+        return await user.send_message(chat_id, "✅ أّنِضّمَ حٌ سأّبِ أّلَمَ سأّعٌدِ إلَىّ أّلَدِڒٍدِشٍ ةّ")
     except UserAlreadyParticipant:
         admin = await m.chat.get_member((await user.get_me()).id)
         if not admin.can_manage_voice_chats:
@@ -31,8 +31,8 @@ async def join_chat(c: Client, m: Message):
                 (await user.get_me()).id,
                 can_manage_voice_chats=True
             )
-            return await user.send_message(chat_id, "✅ حساب المساعد بلفعل موجود")
-        return await user.send_message(chat_id, "✅ لتلح يا خراا موجود افهم")
+            return await user.send_message(chat_id, "✅ حٌ سأّبِ أّلَمَ سأّعٌدِ بِلَفِّعٌلَ مَوِجِوِدِ")
+        return await user.send_message(chat_id, "✅ لَتّلَحٌ يِّأّ خَڒٍأّأّ مَوِجِوِدِ أّفِّهِمَ")
 
 
 @Client.on_message(command(["غادر",
