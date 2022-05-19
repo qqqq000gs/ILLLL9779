@@ -61,9 +61,9 @@ async def skip(client, m: Message):
         if op == 0:
             await m.reply("❌ لَأّيِّوِجِدِ شٍيِّ مَشٍغٌلَ⍆")
         elif op == 1:
-            await m.reply("✅ __قوائم الانتظار__ **فارغ.**\n\n**• أّلَبِوِتّ يِّغٌأّدِڒٍ أّلَدِڒٍدِشٍ ةّ أّلَصٌوِتّيِّ ةّ𖤞**")
+            await m.reply("✅ __قوائم الانتظار__ **فارغ.**\n\n**• أّلَبِوِتّ يِّغٌأّدِڒٍ أّلَدِڒٍدِشٍه أّلَصٌوِتّيِّةّ𖤞**")
         elif op == 2:
-            await m.reply("🗑️ **مَ سحٌ قِوِأّئمَ أّلَأّنِتّظّأّڒٍ道**\n\n**• سيِّتّمَ تّڒٍګ أّلَمَګأّلَمَهِ أّلَصٌوِتّيِّهِ**")
+            await m.reply("🗑 **مَسحٌ قِوِأّئمَ أّلَأّنِتّظّأّڒٍ道**\n\n**• سيِّتّمَ تّڒٍګ أّلَمَګأّلَمَهِ أّلَصٌوِتّيِّهِ**")
         else:
             await m.reply_photo(
                 photo=f"{IMG_3}",
@@ -99,11 +99,11 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ انقطع اتصال المستخدم الروبوت بالدردشة المرئية.")
+            await m.reply("✅ تم الايقاف وفصل الحساب من الدردشه الصوتيه.")
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **لا شيء يتدفق حاليا**")
+        await m.reply("❌ **لاشئ يشتغل الان!!**")
 
 
 @Client.on_message(
@@ -116,7 +116,7 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                "⏸ **تم إيقاف المسار مؤقتًا..**\n\n• **لاستئناف التشغيل ، استخدم**\n» .استئناف أمر."
+                "⏸ **تم إيقاف المسار مؤقتًا..**\n\n• **لاستئناف التشغيل ، استخدم**\n» امر (استئناف)"
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
@@ -134,7 +134,7 @@ async def resume(client, m: Message):
         try:
             await call_py.resume_stream(chat_id)
             await m.reply(
-                "▶️ **استئناف المسار.**\n\n• **لإيقاف البث مؤقتًا ، استخدم**\n» .مؤقت امر."
+                "▶️ **استئناف المسار.**\n\n• **لإيقاف البث مؤقتًا ، استخدم**\n» امر (مؤقت)"
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
@@ -152,12 +152,12 @@ async def mute(client, m: Message):
         try:
             await call_py.mute_stream(chat_id)
             await m.reply(
-                "🔇 **تم كتم البوت.**\n\n• **لإلغاء كتم صوت البوت, استخدم**\n» .الغاء كتم أمر."
+                "🔇 **تم كتم البوت.**\n\n• **لإلغاء كتم صوت البوت, استخدم**\n» امر (الغاء كتم)"
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **لا يوجد اغنية بدردشه الصوتية**")
 
 
 @Client.on_message(
@@ -170,7 +170,7 @@ async def unmute(client, m: Message):
         try:
             await call_py.unmute_stream(chat_id)
             await m.reply(
-                "🔊 **تم إعادة صوت البوت.**\n\n• **لكتم صوت البوت ، استخدم**\n» .كتم أمر."
+                "🔊 **تم إعادة صوت البوت.**\n\n• **لكتم صوت البوت ، استخدم**\n» امر (كتم)"
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
@@ -195,7 +195,7 @@ async def cbpause(_, query: CallbackQuery):
         except Exception as e:
             await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ لا شيء يتدفق حاليا", show_alert=True)
+        await query.answer("❌لا يوجد اغنية بدردشه الصوتية", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbresume"))
@@ -215,7 +215,7 @@ async def cbresume(_, query: CallbackQuery):
         except Exception as e:
             await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ لاشيء يتدفق حاليا", show_alert=True)
+        await query.answer("❌لا يوجد اغنية بدردشه الصوتية", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbstop"))
@@ -234,7 +234,7 @@ async def cbstop(_, query: CallbackQuery):
         except Exception as e:
             await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ لا شيء يتدفق حاليا", show_alert=True)
+        await query.answer("❌لا يوجد اغنية بدردشه الصوتية", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbmute"))
@@ -274,7 +274,7 @@ async def cbunmute(_, query: CallbackQuery):
         except Exception as e:
             await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ لا شيء يتدفق حاليا", show_alert=True)
+        await query.answer("❌لا يوجد اغنية بدردشه الصوتية", show_alert=True)
 
 
 @Client.on_message(
@@ -293,4 +293,4 @@ async def change_volume(client, m: Message):
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
     else:
-        await m.reply("❌ **لا شيء يتدفق حاليا**")
+        await m.reply("❌ **للا يوجد اغنية بدردشه الصوتية**")

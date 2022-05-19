@@ -10,7 +10,7 @@
     ],
     "website": "https://t.me/uui9u",
     "repository": "https://github.com/DevWaham/musvideostream",
-    "success_url": "https://t.me/ssssvs",
+    "success_url": "https://t.me/sSsSsvS",
     "env": {
         "API_ID": {
             "description": "your API_ID from my.telegram.org",
@@ -57,7 +57,7 @@
         "OWNER_NAME": {
             "description": "fill with your telegram account username without @",
             "required": true,
-            "value": "ssssvs"
+            "value": "SsSsvS"
         },
         "ALIVE_NAME": {
             "description": "fill with your telegram account nickname/name",

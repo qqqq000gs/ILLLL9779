@@ -60,14 +60,14 @@ async def update_repo(_, message: Message):
     msg = await message.reply("🔄 `برمجه وكتابه افين الخالدي ...`")
     update_avail = updater()
     if update_avail:
-        await msg.edit("👤 يمكن شراء بوت بحقوقك كامل \n\n• او نسخه سورس بحقوقك بأرخص الأسعار حسابي الوحيد : sssvs.")
+        await msg.edit("👤 يمكن شراء بوت بحقوقك كامل \n\n• او نسخه سورس بحقوقك بأرخص الأسعار حسابي الوحيد : SsSsvS.")
         system("git pull -f && pip3 install -r requirements.txt")
         execle(sys.executable, sys.executable, "main.py", environ)
         return
-    await msg.edit("My only **account on ** telegram [X : IVEN •](https://t.me/sssvs)", disable_web_page_preview=True)
+    await msg.edit("My only **account on ** telegram [X : IVEN •](https://t.me/SsSsvS)", disable_web_page_preview=True)
 
 
-@Client.on_message(command(["ريستارت", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["اعادة", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def restart_bot(_, message: Message):
     msg = await message.reply("`restarting bot...`")
