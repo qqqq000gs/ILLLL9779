@@ -8,7 +8,7 @@ if os.path.exists("local.env"):
 load_dotenv()
 admins = {}
 SESSION_NAME = getenv("SESSION_NAME", "BABHVBgNJ2DR6MM-fM6zDgq0GQXgluBsBbt7poa0Ew9c0kl52fkSPEb8kAfZolRyHvHWeafF3zqtSgu58yqtqQ5hSB4lXbjbfawx9RWkhTJe-qBn-35240Jt3k0NzHjcPZm0_mzfW9R8-Pcf4p4inA-Pu1_LoWXWBmlblvWQy5b0hfOhf3dAzlJ9cOPfKrEFbJMAWcty7Gh4LRwHrK5p14D9Uzo0LcBHw2qGHk1YPiSRDFVivp4nC9_JnQG6VkijEu9M-Hje8-Ydj3WRlZ8NnrK28CziywC8a9LvoVe-TXdD8Lo-LqByzlJqKpJ6SmmuvWO_PnTwT3NmFOA6cxLQCbb1AAAAAS1pE6QA")
-BOT_TOKEN = getenv("BOT_TOKEN", "5458844242:AAEMIFuo_cPhyIMTcFDFgBqj9xGBH02QQw8")
+BOT_TOKEN = getenv("BOT_TOKEN", "")
 BOT_NAME = getenv("BOT_NAME", "%100/𝑀𝑈𝑆𝐼𝐶 📀💯")
 API_ID = int(getenv("API_ID", "15014116")
 API_HASH = int(getenv("API_HASH", "ef9cf3efefc21e0d87696366a3f9431d")
