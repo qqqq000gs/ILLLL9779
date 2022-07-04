@@ -1,14 +1,12 @@
 import asyncio
 from pytgcalls import idle
-from driver.veez import call_py, bot, user
+from driver.veez import call_py, bot
 
 async def start_bot():
     print("[INFO]: STARTING BOT CLIENT")
     await bot.start()
     print("[INFO]: STARTING PYTGCALLS CLIENT")
     await call_py.start()
-    await user.join_chat("eithonsupport")
-    await user.join_chat("EITHON1")
     await idle()
     print("[INFO]: STOPPING BOT & USERBOT")
     await bot.stop()
