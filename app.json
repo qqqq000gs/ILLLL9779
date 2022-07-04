@@ -66,13 +66,11 @@
         },
         "DEV_PHOTO": {
             "description": "ضع لينك صورة حساب مطور البوت",
-            "required": true
-            "value": ""
+            "required": true,
         },
         "DEV_NAME": {
             "description": "ضع اسم حساب التليجرام الخاص بالمطور",
-            "required": true
-            "value": ""
+            "required": true,
         },
         "BOT_PHOTO": {
             "description": "if you have group, then fill the group username here without @",
