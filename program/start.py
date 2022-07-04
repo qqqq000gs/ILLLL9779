@@ -51,8 +51,9 @@ async def _human_time_duration(seconds):
     command(["/start", f"/start@{BOT_USERNAME}"]) & filters.private & ~filters.edited
 )
 async def start_(client: Client, message: Message):
-    await message.reply_text(
-        f"""👋🏻 **اهلا بك {message.from_user.mention()} !**\n
+    await message.reply_photo(
+        photo=f"https://telegra.ph/file/e9258f1ae714616d2cdbb.jpg",
+        caption=f"""👋🏻 **اهلا بك {message.from_user.mention()} !**\n
 🎗 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **انا بوت استطيع تشغيل الاغاني والموسيقى في المكالمات  الصوتية! ᥀︙**
 
 ᥀︙ **لمعرفة اوامر هذا البوت اضغط على » الاوامر الاساسية!**
