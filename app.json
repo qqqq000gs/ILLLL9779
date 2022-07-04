@@ -59,6 +59,11 @@
             "required": true,
             "value": ""
         },
+        "BOT_PHOTO": {
+            "description": "if you have group, then fill the group username here without @",
+            "required": true,
+            "value": ""
+        },
         "ALIVE_NAME": {
             "description": "fill with your telegram account nickname/name",
             "required": true,
