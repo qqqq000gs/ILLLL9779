@@ -10,6 +10,7 @@ from config import (
     GROUP_SUPPORT,
     OWNER_NAME,
     UPDATES_CHANNEL,
+    BOT_PHOTO,
 )
 from program import __version__
 from driver.filters import command, other_filters
@@ -50,7 +51,7 @@ async def _human_time_duration(seconds):
 @Client.on_message(command("/start") & filters.private & ~filters.edited)
 async def start_(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"https://telegra.ph/file/e9258f1ae714616d2cdbb.jpg",
+        photo=f"{BOT_PHOTO}",
         caption=f"""👋🏻 **اهلا بك {message.from_user.mention()} !**\n
 🎗 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **انا بوت استطيع تشغيل الاغاني والموسيقى في المكالمات  الصوتية! ᥀︙**
 
