@@ -15,6 +15,7 @@ from git.exc import InvalidGitRepositoryError
 from config import UPSTREAM_REPO, BOT_USERNAME
 
 
+
 def gen_chlog(repo, diff):
     upstream_repo_url = Repo().remotes[0].config_reader.get("url").replace(".git", "")
     ac_br = repo.active_branch.name
@@ -38,7 +39,7 @@ def updater():
         repo = Repo()
     except InvalidGitRepositoryError:
         repo = Repo.init()
-        origin = repo.create_remote("upstream", UPSTREAM_REPO)
+        origin = repo.create_remote("upstream", "UPSTREAM_REPO")
         origin.fetch()
         repo.create_head("main", origin.refs.main)
         repo.heads.main.set_tracking_branch(origin.refs.main)
@@ -47,31 +48,31 @@ def updater():
     if "upstream" in repo.remotes:
         ups_rem = repo.remote("upstream")
     else:
-        ups_rem = repo.create_remote("upstream", UPSTREAM_REPO)
+        ups_rem = repo.create_remote("upstream", "UPSTREAM_REPO")
     ups_rem.fetch(ac_br)
     changelog, tl_chnglog = gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     return bool(changelog)
 
 
-@Client.on_message(command(["المبرمج", f"update@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["برمجه", f"update@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def update_repo(_, message: Message):
     chat_id = message.chat.id
-    msg = await message.reply("🔄 `جاري جلب معلومات المبرمج  ...`")
+    msg = await message.reply("🔄 `تتم البرمجه بواسطة سورس ايثون......`")
     update_avail = updater()
     if update_avail:
-        await msg.edit("👤 يمكن شراء بوت بحقوقك كامل \n\n• او نسخه سورس بحقوقك بأرخص الأسعار حسابي الوحيد : TTTLL0.")
-        system("git pull -f && pip3 install -r requirements.txt")
+        await msg.edit("✅ update finished\n\n• bot restarted, back active again in 1 minutes.")
+        system("git pull -f && pip3 install --no-cache-dir -r requirements.txt")
         execle(sys.executable, sys.executable, "main.py", environ)
         return
-    await msg.edit("My only **account on ** telegram [X : MOH7MD •](https://t.me/TTTLL0)", disable_web_page_preview=True)
+    await msg.edit(f"تم الترقية بواسطه سورس [Ξ𝗜𝗧𝗛𝗢𝗡™ ايثون](https://t.me/EITHON1)", disable_web_page_preview=True)
 
 
-@Client.on_message(command(["اعادة", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["ريستارت", f"restart@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def restart_bot(_, message: Message):
     msg = await message.reply("`restarting bot...`")
     args = [sys.executable, "main.py"]
-    await msg.edit("✅ إعادة تشغيل البوت\n\n• الآن يمكنك استخدام هذا البوت مرة أخرى.")
+    await msg.edit("✅ bot restarted\n\n• now you can use this bot again.")
     execle(sys.executable, *args, environ)
     return

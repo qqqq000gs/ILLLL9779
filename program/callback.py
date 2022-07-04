@@ -1,9 +1,11 @@
-# Copyright (C) 2021 By VeezMusicProject
-# تم التعريب بواسطه سورس ايــثــون بموجب حقوق النشر تخمط اذكر المصدر لاهينك 
+# Copyright (C) 2022 By Shadow
+
 from driver.queues import QUEUE
 from pyrogram import Client, filters
+from program.utils.inline import menu_markup
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from config import (
+    BOT_PHOTO,
     ASSISTANT_NAME,
     BOT_NAME,
     BOT_USERNAME,
@@ -15,37 +17,36 @@ from config import (
 
 @Client.on_callback_query(filters.regex("cbstart"))
 async def cbstart(_, query: CallbackQuery):
+    await query.answer("الصفحه الرئيسيه")
     await query.edit_message_text(
-        f"""👋🏻 **اهلا بك[{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**\n
-🎗 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) انا بوت استطيع تشغيل الموسيقى والفيديو في المكالمات الصوتية! ᥀︙**
+        f"""✨ **مرحبا عزيزي »「 [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) 」!**\n
+💭 **انا بوت استطيع تشغيل الموسيقي والفديو في محادثتك الصوتية**
 
-᥀︙ **لمعرفة اوامر هذا البوت اضغط على » الاوامر الاساسية!**
+💡 تعلم طريقة تشغيلي واوامر التحكم بي عن طريق  » 📚 الاوامر !
 
-᥀︙ **لمعرفة طريقة تشغيل هذا البوت اضغط على » طريقة التشغيل!**""",
+🔖 لتعلم طريقة تشغيلي بمجموعتك اضغط علي » ❓ طريقة التفعيل !
+""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        "➕ اضفني الى مجموعتك",
-                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
-                    )
-                ],
-                [InlineKeyboardButton("‹طريقة التشغيل›", callback_data="cbhowtouse")],
+                    InlineKeyboardButton("", callback_data="cbhowtouse")
+                    ],
                 [
-                    InlineKeyboardButton("‹الاوامر الاساسية›", callback_data="cbcmds"),
-                    InlineKeyboardButton("‹المطور›", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
+                    InlineKeyboardButton("❤️ المطور", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹قناة السورس›", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "‹قناة البوت›", url=f"https://t.me/EITHON1"
+                        "📣 قناة ايثون", url=f"https://t.me/EITHON1"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹💰 شراء نسخة مدفوعة›", url="https://t.me/TTTLL0"
+                        "ضيـف البـوت لمجمـوعتـك ✅",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true"
                     )
                 ],
             ]
@@ -56,40 +57,42 @@ async def cbstart(_, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("cbhowtouse"))
 async def cbguides(_, query: CallbackQuery):
+    await query.answer("طريقة الاستخدام")
     await query.edit_message_text(
-        f"""᥀ **هذا هي طريقة تشغيل البوت:**
+        f""" الدليل الأساسي لاستخدام هذا البوت:
 
-1.) **اولا, اضفني الى مجموعتك.**
-2.) **بعد ذالك, قم بترقيتي كمسؤول.**
-3.) **بعد ذالك اكتب, .تحديث لتحديث البيانات.**
-3.) **اضف @{ASSISTANT_NAME} في مجموعتك او اكتب انضم **
-4.) **بعد اكمال كل شي قم بفتح محادثة صوتية واستمتع.**
-5.) **بعض الاحيان, ستواجه مشاكل في التشغيل ماعليك فقط سوى كتابة الامر .تحديث**
+ 1 ↤ أولاً ، أضفني إلى مجموعتك
+ 2 ↤ بعد ذلك ، قم بترقيتي كمشرف ومنح جميع الصلاحيات باستثناء الوضع الخفي
+ 3 ↤ بعد ترقيتي ، اكتب /reload مجموعة لتحديث بيانات المشرفين
+ 4 ↤ أضف @{ASSISTANT_NAME} إلى مجموعتك أو اكتب انضم لدعوة حساب المساعد
+ 5 ↤ قم بتشغيل المكالمة  أولاً قبل البدء في تشغيل الفيديو / الموسيقى
+ 6 ↤ في بعض الأحيان ، يمكن أن تساعدك إعادة تحميل البوت باستخدام الأمر /reload في إصلاح بعض المشكلات
+ 📌 إذا لم ينضم البوت إلى المكالمة ، فتأكد من تشغيل المكالمة  بالفعل ، أو اكتب /userbotleave ثم اكتب /userbotjoin مرة أخرى
 
-᥀ ** اذ لم ينضم حساب المساعد اكتب غادر , وبعد ذالك اكتب انضم**
+ 💡 إذا كانت لديك أسئلة  حول هذا البوت ، فيمكنك إخبارنا منن خلال قروب الدعم الخاصة بي هنا ↤ @{GROUP_SUPPORT}
 
-᥀ __بواسطة  {BOT_NAME} __""",
+⚡ قناة البوت @{UPDATES_CHANNEL}
+""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("رجوع", callback_data="cbstart")]]
+            [[InlineKeyboardButton("🔙 رجوع", callback_data="cbstart")]]
         ),
     )
 
 
 @Client.on_callback_query(filters.regex("cbcmds"))
 async def cbcmds(_, query: CallbackQuery):
+    await query.answer("قائمة الاوامر")
     await query.edit_message_text(
-        f"""᥀ **مرحبا بك [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
+        f"""» **قم بالضغط علي الزر الذي تريده لمعرفه الاوامر لكل فئه منهم !**
 
-» **مرحبا بك في قائمة الاوامر الاساسية يمكنك معرفة الاوامر عن طريق استخدام الازرار ادناة !**
-
-᥀︙ __بواسطة {BOT_NAME} __""",
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("᥀ اوامر المشرفين", callback_data="cbadmin"),
-                    InlineKeyboardButton("᥀ اوامر المطور", callback_data="cbsudo"),
+                    InlineKeyboardButton("👷🏻 اوامر الادمنيه", callback_data="cbadmin"),
+                    InlineKeyboardButton("🧙🏻 اوامر المطور", callback_data="cbsudo"),
                 ],[
-                    InlineKeyboardButton("᥀ اوامر الاعضاء", callback_data="cbbasic")
+                    InlineKeyboardButton("📚 اوامر اساسيه", callback_data="cbbasic")
                 ],[
                     InlineKeyboardButton("🔙 رجوع", callback_data="cbstart")
                 ],
@@ -100,47 +103,45 @@ async def cbcmds(_, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("cbbasic"))
 async def cbbasic(_, query: CallbackQuery):
+    await query.answer("الاوامر الاساسيه")
     await query.edit_message_text(
-        f"""᥀ مرحبا بك هذا هي اوامر الاعضاء:
+        f"""🏮 الاوامر الاساسيه:
 
-᥀ تشغيل - لتشغيل اغنية بالرد على ملف صوتي
-᥀ تدفق - لتشغيل راديو بث مباشر
-᥀ فيديو - بالرد على مقطع فيديو
-᥀ مباشر - لبث مباشر من اليوتيوب
-᥀ القائمة - لاضهار قائمة الانتضار
-᥀ ابحث - لتحميل فيديو من اليوتيوب
-᥀ تحميل - لتحميل اغنية من اليوتيوب
-᥀ كلمات - لاضهار كلمات اغنية
-᥀ روابط - لاضهار رابط اغنية
-
-᥀ بنك - عرض حالة البوت بينغ
-᥀ فحص - لاضهار حاله البوت ان يعمل او لا
-᥀ الحاله - فحص البوت في المجموعة
-
-᥀ __بواسطة {BOT_NAME} __""",
+» /play +「اسم الأغنية / رابط」لتشغيل اغنيه في المحادثه الصوتيه
+» /vplay +「اسم الفيديو / رابط 」 لتشغيل الفيديو داخل المكالمة
+» /vstream 「رابط」 تشغيل فيديو مباشر من اليوتيوب
+» /playlist 「تظهر لك قائمة التشغيل」
+» /end「لإنهاء الموسيقى / الفيديو في الكول」
+» /song + 「الاسم تنزيل صوت من youtube」
+»/vsong + 「الاسم  تنزيل فيديو من youtube」
+» /skip「للتخطي إلى التالي」
+» /ping 「إظهار حالة البوت بينغ」
+» /uptime 「لعرض مده التشغيل للبوت」
+» /alive「اظهار معلومات البوت(في المجموعه)」
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
     )
 
 
+
 @Client.on_callback_query(filters.regex("cbadmin"))
 async def cbadmin(_, query: CallbackQuery):
+    await query.answer("اوامر الادمنيه")
     await query.edit_message_text(
-        f"""᥀ مرحبا بك هذا هي اوامر المشرفين:
+        f"""🏮 هنا أوامر الادمنيه:
 
-᥀ مؤقت - لايقاف الاغنية مؤقتا
-᥀ استئناف - لاستمرار الاغنية المتوقفة
-᥀ تخطي - لتخطي اغنية , فيديو
-᥀ ايقاف - لانتهاء تشغيل الموسيقى
-᥀ كتم - لكتم حساب المساعد
-᥀ الغاء كتم- لالغاء كتم حساب المساعد
-᥀ مستوى `1-200` - لضبط حجم الصوت
-᥀ تحديث - اعادة تشغيل وتحديث بيانات
-᥀ انضم - دعوة حساب المساعد للمجموعة
-᥀ غادر - لخروج حساب مساعد من لمجموعة
-
-᥀ __بواسطة {BOT_NAME} __""",
+» /pause 「ايقاف التشغيل موقتآ」
+» /resume 「استئناف التشغيل」
+» /stop「لإيقاف التشغيل」
+» /vmute 「لكتم البوت」
+» /vunmute 「لرفع الكتم عن البوت」
+» /volume 「ضبط مستوئ الصوت」
+» /reload「لتحديث البوت و قائمة المشرفين」
+» /userbotjoin「لاستدعاء الحساب المساعد」
+» /userbotleave「لطرد الحساب المساعد」
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
@@ -148,54 +149,45 @@ async def cbadmin(_, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("cbsudo"))
 async def cbsudo(_, query: CallbackQuery):
+    await query.answer("اوامر المطور")
     await query.edit_message_text(
-        f"""🏮 مرحبا بك يامطوري في اوامرك التالية:
+        f"""🏮 هنا اوامر المطور:
 
-᥀ امسح - تنظيف جميع الملفات الخام
-᥀ حدث - تحديث البوت الى اخر اصدار
-᥀ النظام - اضهار معلومات النظام
-᥀ حدث - لتحديث البوت الى احدث اصدار
-᥀ اعادة - اعادة تشغيل البوت
-᥀ مغادرة كل المجموعات - لمغادرة حساب المساعد من كل المجموعات
+» /rmw「لحذف جميع الملفات 」
+» /rmd「حذف جميع الملفات المحمله」
+» /sysinfo「لمعرفه معلومات السيرفر」
+» /update「لتحديث بوتك لاخر نسخه」
+» /restart「اعاده تشغيل البوت」
+» /leaveall「خروج الحساب المساعد من جميع المجموعات」
 
-᥀ __بواسطة {BOT_NAME} __""",
+⚡ قناة البوت @{UPDATES_CHANNEL}""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 رجوع", callback_data="cbcmds")]]
         ),
     )
-#تم تعريب وتعديل هذا الملف بواسطه مطورين ايثون تخمط اختك انيجها 😂
+
 
 @Client.on_callback_query(filters.regex("cbmenu"))
 async def cbmenu(_, query: CallbackQuery):
-    if query.message.sender_chat:
-        return await query.answer("انت مستخدم مجهول !\n\n» لاتستطيع استخدام البوت.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡وخر ايدك المشرف الوحيد الذي لديه صلاحية إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+        return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     chat_id = query.message.chat.id
+    user_id = query.message.from_user.id
+    buttons = menu_markup(user_id)
+    chat = query.message.chat.title
     if chat_id in QUEUE:
           await query.edit_message_text(
-              f"⚙️ **اعدادات الاغنية** {query.message.chat.title}\n\n⏸ : ايقاف مؤقت\n▶️ : استمرار\n🔇 : كتم حساب المساعد\n🔊 : الغاء كتم حساب المساعد\n⏹ : ايقاف التشغيل",
-              reply_markup=InlineKeyboardMarkup(
-                  [[
-                      InlineKeyboardButton("⏹", callback_data="cbstop"),
-                      InlineKeyboardButton("⏸", callback_data="cbpause"),
-                      InlineKeyboardButton("▶️", callback_data="cbresume"),
-                  ],[
-                      InlineKeyboardButton("🔇", callback_data="cbmute"),
-                      InlineKeyboardButton("🔊", callback_data="cbunmute"),
-                  ],[
-                      InlineKeyboardButton("🗑 اغلاق", callback_data="cls")],
-                  ]
-             ),
-         )
+              f"⚙️ **الإعدادات** {query.message.chat.title}\n\n⏸ : ايقاف التشغيل موقتآ\n▶️ : استئناف التشغيل\n🔇 : كتم الصوت\n🔊 : الغاء كتم الصوت\n⏹ : ايقاف التشغيل",
+              reply_markup=InlineKeyboardMarkup(buttons),
+          )
     else:
-        await query.answer("❌ ماكو شي مشتغل يمعود؟", show_alert=True)
+        await query.answer("❌ قائمة التشغيل فارغه", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cls"))
 async def close(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 وخر ايدك المشرف الوحيد الذي لديه صلاحية إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
+        return await query.answer("💡 المسؤول الوحيد الذي لديه إذن إدارة الدردشات الصوتية يمكنه النقر على هذا الزر !", show_alert=True)
     await query.message.delete()

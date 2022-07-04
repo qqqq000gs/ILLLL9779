@@ -1,23 +1,33 @@
+import asyncio
+
 from datetime import datetime
 from sys import version_info
 from time import time
 
 from config import (
+    BOT_PHOTO,
     ALIVE_IMG,
     ALIVE_NAME,
     BOT_NAME,
     BOT_USERNAME,
     GROUP_SUPPORT,
     OWNER_NAME,
+    SUDO_USERS,
+    BOT_TOKEN,
+    DEV_PHOTO,
+    DEV_NAME,
     UPDATES_CHANNEL,
-    BOT_PHOTO,
 )
 from program import __version__
+from driver.veez import user
 from driver.filters import command, other_filters
-from pyrogram import Client, filters
-from pyrogram import __version__ as pyrover
+from driver.decorators import sudo_users_only
+from driver.database.dbchat import add_served_chat, is_served_chat
+from driver.database.dbpunish import is_gbanned_user
+from pyrogram import Client, filters, __version__ as pyrover
+from pyrogram.errors import FloodWait, MessageNotModified
 from pytgcalls import (__version__ as pytover)
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, ChatJoinRequest
 
 __major__ = 0
 __minor__ = 2
@@ -48,110 +58,104 @@ async def _human_time_duration(seconds):
     return ", ".join(parts)
 
 
-@Client.on_message(command("/start") & filters.private & ~filters.edited)
+@Client.on_message(command("start") & filters.private & ~filters.edited)
 async def start_(client: Client, message: Message):
     await message.reply_photo(
         photo=f"{BOT_PHOTO}",
-        caption=f"""👋🏻 **اهلا بك {message.from_user.mention()} !**\n
-🎗 [{BOT_NAME}](https://t.me/{BOT_USERNAME}) **انا بوت استطيع تشغيل الاغاني والموسيقى في المكالمات  الصوتية! ᥀︙**
+        caption=f"""✨ **مرحبا عزيزي » {message.from_user.mention()} !**\n
+💭 **انا بوت استطيع تشغيل الموسيقي والفديو في محادثتك الصوتية**
 
-᥀︙ **لمعرفة اوامر هذا البوت اضغط على » الاوامر الاساسية!**
+💡 تعلم طريقة تشغيلي واوامر التحكم بي عن طريق  » 📚 الاوامر !
 
-᥀︙ **لمعرفة طريقة تشغيل هذا البوت اضغط على » طريقة التشغيل!**
+🔖 لتعلم طريقة تشغيلي بمجموعتك اضغط علي » ❓ طريقة التفعيل !
 """,
         reply_markup=InlineKeyboardMarkup(
             [
+
                 [
-                    InlineKeyboardButton(
-                        "➕ اضف البوت الى مجموعتك",
-                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
-                    )
-                ],
-                [InlineKeyboardButton("‹طريقة التشغيل›", callback_data="cbhowtouse")],
+                    InlineKeyboardButton("", callback_data="cbhowtouse")
+                    ],
                 [
-                    InlineKeyboardButton("‹الاوامر الاساسية›", callback_data="cbcmds"),
-                    InlineKeyboardButton("‹المطور›", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
+                    InlineKeyboardButton("❤️ المطور", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹قناة السورس›", url=f"https://t.me/EITHON1"
+                        "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "‹قناة البوت›", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣 قناة ايثون", url=f"https://t.me/EITHON1"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "‹لتنصيب بوت مماثل›", url="https://t.me/TTTLL0"
+                        "ضيـف البـوت لمجمـوعتـك ✅",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true"
                     )
                 ],
             ]
         ),
-        disable_web_page_preview=True,
     )
 
 
-@Client.on_message(
-    command(["الحاله", f"alive@{BOT_USERNAME}"]) & filters.group & ~filters.edited
-)
-async def alive(client: Client, message: Message):
-    current_time = datetime.utcnow()
-    uptime_sec = (current_time - START_TIME).total_seconds()
-    uptime = await _human_time_duration(int(uptime_sec))
-
-    keyboard = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton("اوامر التشغيل", url=f"https://t.me/EITHON1"),
-                InlineKeyboardButton(
-                    "مطور السورس", url=f"https://t.me/TTTLL0"
-                ),
-            ]
-        ]
-    )
-
-    alive = f"**هلا {message.from_user.mention()}, i'm {BOT_NAME}**\n\nℹ️ أّلَبِوِتّ يِّعٌمَلَ بِشٍګلَ طّبِيِّعٌيِّ𖠀\nℹ️ حٌسأّبِ أّلَمَسأّعٌدِ أّلَخَأّصٌ بِيِّ: [{ALIVE_NAME}] \n\n**شٍګڒٍأّ لَأّضّأّفِّتّيِّ هِنِأّ لَتّشٍشٍغٌيِّلَ أّلَمَوِسيِّقِىّ عٌلَىّ أّلَمَحٌأّدِثّةّ أّلَصٌوِتّيِّةّ༗** 💖"
-
+@Client.on_message(command(["مبرمج السورس", f"ؤمن", f"ورس", f"السورس", f"مطور", f"المطور"]) & filters.group & ~filters.edited)
+async def start(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"{ALIVE_IMG}",
-        caption=alive,
-        reply_markup=keyboard,
-    )
-
-@Client.on_message(
-    command(["السورس", f"SUORCE@{BOT_USERNAME}"]) & filters.group & ~filters.edited
-)
-async def src(client: Client, message: Message):
-    current_time = datetime.utcnow()
-    uptime_sec = (current_time - START_TIME).total_seconds()
-    uptime = await _human_time_duration(int(uptime_sec))
-
-    keyboard = InlineKeyboardMarkup(
-        [
+        photo=f"https://telegra.ph/file/e9258f1ae714616d2cdbb.jpg",
+        caption=f"""Programmer [EITHON](https://t.me/EITHON1) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼""",
+        reply_markup=InlineKeyboardMarkup(
+         [
             [
-                InlineKeyboardButton("اوامر التشغيل", url=f"https://t.me/EITHON1"),
+                InlineKeyboardButton("℡ ᯓ Ξ𝗜𝗧𝗛𝗢𝗡™ ايثون", url=f"https://t.me/EITHON1"),
+            ],
+            [
                 InlineKeyboardButton(
-                    "مطور السورس", url=f"https://t.me/TTTLL0"
+                    "-محمد .", url=f"https://t.me/M_Z_Z_W"
                 ),
+            ],
+            [
+                InlineKeyboardButton("♡اضف البوت الى مجموعتك♡", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
             ]
-        ]
-    )
+         ]
+     )
+  )
 
-    alive = f"**هلا {message.from_user.mention()}, i'm {BOT_NAME}**\n\nℹ️ 🎶 هذا هو سورس ايـــثــون ميوزك𖠀\nℹ️  اختصاص هذا البوت لتشغيل مقاطع صوتية او مقاطع الفيديو في المكالمات الصوتية \n\n**⚒ لعرض اوامر البوت يمكنك مشاهده الفيدو او قم بدخول الى خاص البوت وتابع التعليمات** 💖"
-
+@Client.on_message(command(["لمطور", "المطور"]) & filters.group & ~filters.edited)
+async def help(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"{ALIVE_IMG}",
-        caption=alive,
-        reply_markup=keyboard,
-    )
-# حتى هذا تعدل عليه قول ايــثــون تاج راسك يلا 😂
+        photo=f"{DEV_PHOTO}",
+        caption=f"""◍ الاول : هو مطور السورس \n◍ الثاني : هو مطور البوت\n√""",
+        reply_markup=InlineKeyboardMarkup(
+         [
+            [
+                InlineKeyboardButton("𓌹℡ ᯓ Ξ𝗜𝗧𝗛𝗢𝗡™ ايثون", url=f"https://t.me/EITHON1"),
+            ],
+            [
+                InlineKeyboardButton(
+                        DEV_NAME, url=f"https://t.me/{OWNER_NAME}"
+                ),
+            ],
+            [
+                InlineKeyboardButton("ضيـف البـوت لمجمـوعتـك ✅", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
+            ]
+         ]
+     )
+  )
 
-@Client.on_message(command(["بنك", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["جلب التوكن", f"لب_التوكن", "hadow"]) & filters.private & ~filters.edited)
+@sudo_users_only
+async def shadow(c: Client, message: Message):
+    start = time()
+    m_reply = await message.reply_text("انتظر من فضلك...")
+    BOT_TOKEN = time() - start
+    await m_reply.edit_text(f"**تم جلب التوكن**\n`{BOT_TOKEN}`")
+
+@Client.on_message(command(["ping", f"بينج"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
-    m_reply = await message.reply_text("جاري الحساب...")
+    m_reply = await message.reply_text("pinging...")
     delta_ping = time() - start
-    await m_reply.edit_text("🏓 `اابنك!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
+    await m_reply.edit_text("🏓 `PONG!!`\n" f"⚡️ `{delta_ping * 1000:.3f} ms`")
 
 
 @Client.on_message(command(["فحص", f"uptime@{BOT_USERNAME}"]) & ~filters.edited)
@@ -160,7 +164,72 @@ async def get_uptime(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🤖 حاله البوت:\n"
-        f"• **المدة:** `{uptime}`\n"
-        f"• **وقت التشغيل:** `{START_TIME_ISO}`"
+        "🤖 bot status:\n"
+        f"• **uptime:** `{uptime}`\n"
+        f"• **start time:** `{START_TIME_ISO}`"
     )
+
+
+@Client.on_chat_join_request()
+async def approve_join_chat(c: Client, m: ChatJoinRequest):
+    if not m.from_user:
+        return
+    try:
+        await c.approve_chat_join_request(m.chat.id, m.from_user.id)
+    except FloodWait as e:
+        await asyncio.sleep(e.x + 2)
+        await c.approve_chat_join_request(m.chat.id, m.from_user.id)
+
+
+@Client.on_message(filters.new_chat_members)
+async def new_chat(c: Client, m: Message):
+    chat_id = m.chat.id
+    if await is_served_chat(chat_id):
+        pass
+    else:
+        await add_served_chat(chat_id)
+    ass_uname = (await user.get_me()).username
+    bot_id = (await c.get_me()).id
+    for member in m.new_chat_members:
+        if member.id == bot_id:
+            return await m.reply(
+                "❤️ **شكرا لإضافتي إلى المجموعة !**\n\n"
+                "قم بترقيتي كمسؤول عن المجموعة لكي أتمكن من العمل بشكل صحيح\nولا تنسى كتابة `/انضم` لدعوة الحساب المساعد\nقم بكتابة`/تحديث` لتحديث قائمة المشرفين",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton("📣 قناة البوت", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                            InlineKeyboardButton("💭 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}")
+                        ],
+                        [
+                            InlineKeyboardButton(
+                        ALIVE_NAME, url=f"https://t.me/{ass_uname}"),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                        "♡اضـف الـبـوت لـمـجـمـوعـتـك♡",
+                        url=f'https://t.me/{BOT_USERNAME}?startgroup=true'),
+                        ],
+                    ]
+                )
+            )
+
+
+chat_watcher_group = 5
+
+@Client.on_message(group=chat_watcher_group)
+async def chat_watcher_func(_, message: Message):
+    try:
+        userid = message.from_user.id
+    except Exception:
+        return
+    suspect = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
+    if await is_gbanned_user(userid):
+        try:
+            await message.chat.ban_member(userid)
+        except Exception:
+            return
+        await message.reply_text(
+            f"👮🏼 (> {suspect} <)\n\n**Gbanned** user detected, that user has been gbanned by sudo user and was blocked from this Chat !\n\n🚫 **Reason:** potential spammer and abuser."
+        )
+
