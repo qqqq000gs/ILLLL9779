@@ -18,7 +18,7 @@ from driver.filters import command, other_filters
 from driver.queues import QUEUE, add_to_queue
 from driver.veez import call_py, user
 from driver.utils import bash
-from config import BOT_USERNAME, IMG_5
+from config import BOT_USERNAME, UPDATES_CHANNEL, BOT_TOKEN
 # youtube-dl stuff
 from youtubesearchpython import VideosSearch
 
@@ -45,9 +45,13 @@ async def ytdl(link: str):
         return 1, stdout
     return 0, stderr
 
-
-@Client.on_message(command(["play","شغيل","شغل","/play", f"تشغيل"]) & other_filters)
+@Client.on_message(command(["تشغيل","شغل","play","/play","ش", f"play@{BOT_USERNAME}"]) & other_filters)
 async def play(c: Client, m: Message):
+    await m.delete()
+    do = requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getChatMember?chat_id=@{UPDATES_CHANNEL}&user_id={m.from_user.id}").text
+    if do.count("left") or do.count("Bad Request: user not found"):
+        await m.reply_text(f" ** ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉**\n@{UPDATES_CHANNEL}\n» **اشتࢪك بقناة البوت لتستطيع تشغيل الاغاني**")   
+else:
     replied = m.reply_to_message
     chat_id = m.chat.id
     user_id = m.from_user.id
