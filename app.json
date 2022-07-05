@@ -1,68 +1,69 @@
 {
-    "name": "سورس ايــثــون ميوزك بوت الاول في التلجرام قناتنا الرسميه @EITHON1",
-    "description": "Telegram bot for Streaming Video & Music trought the Telegram Group Video Chat, powered by pytgcalls and pyrogram",
-    "logo": "https://telegra.ph/file/4763d6135a6dec50390b7.jpg",
+    "name": "Ξ𝗜𝗧𝗛𝗢𝗡™ ايثون",
+    "description": "Telegram bot for Streaming Video & Music trought the Telegram Group Video Chat, powered by PyTgCalls and Pyrogram",
+    "logo": "https://telegra.ph/file/e9258f1ae714616d2cdbb.jpg",
     "keywords": [
-        "pytgcalls",
+        "py-tgcalls",
         "telegram bot",
         "video stream",
+        "live stream",
+        "music stream",
+        "mongodb",
         "pyrogram"
     ],
     "website": "https://t.me/EITHON1",
     "repository": "https://github.com/pqnzbmmwQ92/ll",
-    "success_url": "https://t.me/EITHON1",
+    "success_url": "https://t.me/EITHMU1",
     "env": {
         "API_ID": {
-            "description": "your API_ID from my.telegram.org",
+            "description": "قم بوضع الايبي ايدي هنا",
             "required": true
         },
         "API_HASH": {
-            "description": "your API_HASH from my.telegram.org",
+            "description": "قم بوضع الايبي هاش",
             "required": true
         },
         "BOT_TOKEN": {
-            "description": "your bot token from @BotFather",
+            "description": "قم بوضع توكن البوت الخاص بك هنا",
             "required": true
         },
         "BOT_USERNAME": {
-            "description": "your bot username from @BotFather",
-            "required": true
-        },
-        "BOT_NAME": {
-            "description": "fill with your bot name from @BotFather",
-            "required": true
-        },
-        "ASSISTANT_NAME": {
-            "description": "fill with the assistant username account without @",
-            "required": true
-        },
-        "SESSION_NAME": {
-            "description": "fill with the pyrogram String Session",
-            "required": true
-        },
-        "MONGODB_URL": {
-            "description": "لا تغيره!",
-            "required": true,
-            "value": "mongodb+srv://lucifer:ASShaw96@lucifer.vuows.mongodb.net/lucifer?retryWrites=true&w=majority"
-        },
-        "SUDO_USERS": {
-            "description": "list of user ids to be added to sudo member list, or just fill with your id",
-            "required": true
-        },
-        "GROUP_SUPPORT": {
-            "description": "if you have group, then fill the group username here without @",
-            "required": true,
-            "value": "eithonsupport"
-        },
-        "UPDATES_CHANNEL": {
-            "description": "if you have channel, then fill the channel username here without @",
-            "required": true,
-            "value": "EITHON1"
-        },
-        "OWNER_NAME": {
-            "description": "fill with your telegram account username without @",
+            "description": "قم بوضع يوزر بوتك بدون علامة @",
             "required": true,
             "value": ""
+        },
+        "ASSISTANT_NAME": {
+            "description": "قم بوضع يوزر الحساب المساعد بدون علامة @",
+            "required": true,
+            "value": ""
+        },
+        "SESSION_NAME": {
+            "description": "قم بوضع كود تيرمكس هنا",
+            "required": true
+        },
+        "SUDO_USERS": {
+            "description": "قم بوضع ايدي المطور الاساسي",
+            "required": true,
+            "value": ""
+        },
+        "GROUP_SUPPORT": {
+            "description": "ضع هنا يوزر جروبك بدون علامة @",
+            "required": true,
+            "value": ""
+        },
+        "UPDATES_CHANNEL": {
+            "description": "ضع هنا يوزر قناتك بدون علامة @",
+            "required": true,
+            "value": ""
+        },
+        "OWNER_NAME": {
+            "description": "ضع هنا يوزر المطور بدون علامة @",
+            "required": true,
+            "value": ""
+        },
+        "BOT_PHOTO": {
+            "description": "ضع لينك صورة البوت ",
+            "required": true
         },
         "DEV_PHOTO": {
             "description": "ضع لينك صورة حساب مطور البوت",
@@ -72,15 +73,20 @@
             "description": "ضع اسم حساب التليجرام الخاص بالمطور",
             "required": true
         },
-        "BOT_PHOTO": {
-            "description": "if you have group, then fill the group username here without @",
+        "ALIVE_NAME": {
+            "description": "ضع هنا اسم الحساب المساعد",
             "required": true,
             "value": ""
         },
-        "ALIVE_NAME": {
-            "description": "fill with your telegram account nickname/name",
+        "MONGODB_URL": {
+            "description": "لا تغيره!",
             "required": true,
-            "value": ""
+            "value": "mongodb+srv://lucifer:ASShaw96@lucifer.vuows.mongodb.net/lucifer?retryWrites=true&w=majority"
+        },
+        "UPSTREAM_REPO": {
+            "description": "اتركه كما هوا",
+            "required": true,
+            "value": "https://github.com/pqnzbmmwQ92/ll"
         }
     },
     "addons": [],
