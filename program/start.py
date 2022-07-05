@@ -63,11 +63,11 @@ async def start_(client: Client, message: Message):
     await message.reply_photo(
         photo=f"{BOT_PHOTO}",
         caption=f"""✨ **مرحبا عزيزي » {message.from_user.mention()} !**\n
-💭 **انا بوت استطيع تشغيل الموسيقي والفديو في محادثتك الصوتية**
+💭 **᥀︙انا بوت استطيع تشغيل الاغاني والموسيقى في المكالمات  الصوتية! 
 
-💡 تعلم طريقة تشغيلي واوامر التحكم بي عن طريق  » 📚 الاوامر !
+᥀︙ لمعرفة اوامر هذا البوت اضغط على » اوامر التشغيل!
 
-🔖 لتعلم طريقة تشغيلي بمجموعتك اضغط علي » ❓ طريقة التفعيل !
+᥀︙ لمعرفة طريقة تشغيل هذا البوت اضغط على » طريقة التشغيل!
 """,
         reply_markup=InlineKeyboardMarkup(
             [
@@ -76,20 +76,20 @@ async def start_(client: Client, message: Message):
                     InlineKeyboardButton("", callback_data="cbhowtouse")
                     ],
                 [
-                    InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
+                    InlineKeyboardButton("‹ اوامر التشغيل › ", callback_data="cbcmds"),
                     InlineKeyboardButton("❤️ المطور", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "‹ كروب الدعم › ", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قناة ايثون", url=f"https://t.me/EITHON1"
+                        "‹ قناة السورس ›", url=f"https://t.me/EITHON1"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "ضيـف البـوت لمجمـوعتـك ✅",
+                        "اضـف البـوت لمجمـوعتـك ✅",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true"
                     )
                 ],
@@ -101,7 +101,7 @@ async def start_(client: Client, message: Message):
 @Client.on_message(command(["مبرمج السورس", f"ؤمن", f"ورس", f"السورس", f"مطور", f"المطور"]) & filters.group & ~filters.edited)
 async def start(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"https://telegra.ph/file/e9258f1ae714616d2cdbb.jpg",
+        photo=f"https://telegra.ph/file/8efbe93b81985bb648d95.jpg",
         caption=f"""Programmer [EITHON](https://t.me/EITHON1) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼""",
         reply_markup=InlineKeyboardMarkup(
          [
@@ -150,7 +150,7 @@ async def shadow(c: Client, message: Message):
     BOT_TOKEN = time() - start
     await m_reply.edit_text(f"**تم جلب التوكن**\n`{BOT_TOKEN}`")
 
-@Client.on_message(command(["ping", f"بينج"]) & ~filters.edited)
+@Client.on_message(command(["ping", f"بنك"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
     m_reply = await message.reply_text("pinging...")
@@ -198,8 +198,8 @@ async def new_chat(c: Client, m: Message):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("📣 قناة البوت", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                            InlineKeyboardButton("💭 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}")
+                            InlineKeyboardButton("‹ قناة البوت ›", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                            InlineKeyboardButton("‹ كروب الدعم ›", url=f"https://t.me/{GROUP_SUPPORT}")
                         ],
                         [
                             InlineKeyboardButton(
