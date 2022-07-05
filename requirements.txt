@@ -3,11 +3,12 @@ asyncio
 ffmpeg-python
 py-tgcalls
 pyrogram==1.4.16
-youtube-search-python
+youtube-search-python==1.4.9
 yt-dlp==2021.11.10.1
 lyricsgenius
 speedtest-cli
 youtube-search
+youtube-dl
 python-dotenv
 dnspython
 gitpython
