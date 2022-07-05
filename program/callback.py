@@ -20,11 +20,11 @@ async def cbstart(_, query: CallbackQuery):
     await query.answer("الصفحه الرئيسيه")
     await query.edit_message_text(
         f"""✨ **مرحبا عزيزي »「 [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) 」!**\n
-💭 **انا بوت استطيع تشغيل الموسيقي والفديو في محادثتك الصوتية**
+💭 **᥀︙انا بوت استطيع تشغيل الاغاني والموسيقى في المكالمات  الصوتية! 
 
-💡 تعلم طريقة تشغيلي واوامر التحكم بي عن طريق  » 📚 الاوامر !
+᥀︙ لمعرفة اوامر هذا البوت اضغط على » ‹الاوامر الاساسية›!
 
-🔖 لتعلم طريقة تشغيلي بمجموعتك اضغط علي » ❓ طريقة التفعيل !
+᥀︙ لمعرفة طريقة تشغيل هذا البوت اضغط على » طريقة التشغيل!
 """,
         reply_markup=InlineKeyboardMarkup(
             [
@@ -32,15 +32,15 @@ async def cbstart(_, query: CallbackQuery):
                     InlineKeyboardButton("", callback_data="cbhowtouse")
                     ],
                 [
-                    InlineKeyboardButton("📚 الاوامر", callback_data="cbcmds"),
+                    InlineKeyboardButton("‹ اوامر التشغيل › ", callback_data="cbcmds"),
                     InlineKeyboardButton("❤️ المطور", url=f"https://t.me/{OWNER_NAME}"),
                 ],
                 [
                     InlineKeyboardButton(
-                        "👥 جروب الدعم", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "‹ كروب الدعم ›", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 قناة ايثون", url=f"https://t.me/EITHON1"
+                        "‹ قناة السورس ›", url=f"https://t.me/EITHON1"
                     ),
                 ],
                 [
