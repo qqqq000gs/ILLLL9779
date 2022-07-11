@@ -101,8 +101,8 @@ async def start_(client: Client, message: Message):
 @Client.on_message(command(["مبرمج السورس", f"ؤمن", f"ورس", f"السورس", f"مطور", f"المطور"]) & filters.group & ~filters.edited)
 async def start(client: Client, message: Message):
     await message.reply_photo(
-        photo=f"https://telegra.ph/file/1b1b68ed7ece06e8b21c2.jpg",
-        caption=f"""Programmer [مبرمج السورس](https://t.me/N_J_9) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼""",
+        photo=f"https://telegra.ph/file/bb61565203c91bdac14bc.jpg",
+        caption=f"""Programmer [صانع بوتات خدميه](https://t.me/O_K_8Bot) 𖡼\nᴛᴏ ᴄᴏᴍᴍụɴɪᴄᴀᴛᴇ ᴛᴏɢᴇᴛʜᴇʀ 𖡼\nғᴏʟʟᴏᴡ ᴛʜᴇ ʙụᴛᴛᴏɴѕ ʟᴏᴡᴇʀ 𖡼""",
         reply_markup=InlineKeyboardMarkup(
          [
             [
@@ -110,7 +110,7 @@ async def start(client: Client, message: Message):
             ],
             [
                 InlineKeyboardButton(
-                    "قناة البوت .", url=f"https://t.me/X_8_00"
+                    " تواصل مبرمج السورس.", url=f"https://t.me/T_F_TlBot"
                 ),
             ],
             [
