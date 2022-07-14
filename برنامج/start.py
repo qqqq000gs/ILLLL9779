@@ -106,7 +106,7 @@ async def start(client: Client, message: Message):
         reply_markup=InlineKeyboardMarkup(
          [
             [
-                InlineKeyboardButton("السورس", url=f"https://t.me/U_K_M8"),
+                InlineKeyboardButton("𝑆𝑂𝑅𝑆 𝐴𝐿 𝑀𝐸𝑀", url=f"https://t.me/U_K_M8"),
             ],
             [
                 InlineKeyboardButton(
@@ -128,7 +128,7 @@ async def help(client: Client, message: Message):
         reply_markup=InlineKeyboardMarkup(
          [
             [
-                InlineKeyboardButton("السورس", url=f"https://t.me/U_K_M8"),
+                InlineKeyboardButton("𝑆𝑂𝑅𝑆 𝐴𝐿 𝑀𝐸𝑀", url=f"https://t.me/U_K_M8"),
             ],
             [
                 InlineKeyboardButton(
